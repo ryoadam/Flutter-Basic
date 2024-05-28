@@ -1,4 +1,7 @@
+
+
 import 'package:flutter/material.dart';
+import 'package:flutter_basic/mahasiswa.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,6 +33,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool isLoading = true;
+  List<Mahasiswa> listMahasiswa = [
+    Mahasiswa(nim: 669, nama: 'RyooAje', addres: 'Tohupo'),
+    Mahasiswa(nim: 665, nama: 'MalikPaulo', addres: 'Luwuk'),
+    Mahasiswa(nim: 663, nama: 'RyooAdam', addres: 'Kabila'),
+    Mahasiswa(nim: 661, nama: 'RyooSantai', addres: 'Kota'),
+    Mahasiswa(nim: 667, nama: 'Ekaremix', addres: 'Panggulo'),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,18 +51,40 @@ class _MyHomePageState extends State<MyHomePage> {
       body: ListView.builder(
         padding: EdgeInsets.all(16),
         itemBuilder: (context, index) {
-          return Card(
+          return InkWell(
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (_) {
+                  return AlertDialog(
+                    title: const Text('Data Mahasiswa'),
+                    content: Column(children: [
+                      Row(
+                        mainAxisAlignment: 
+                        MainAxisAlignment.spaceAround,
+                        children: [
+                        const Text('Name:'),
+                      Text(listMahasiswa[index].nama) 
+                      ],
+                      ),
+                    ]),
+                  );
+                });
+            },
+
+
+
             child: ListTile(
               leading: CircleAvatar(
                 backgroundColor: Colors.pink,
-                child: Text('$index'),
+                child: Text('${listMahasiswa[index].nim}'),
               ),
-              title: Text('Riooo'),
-              subtitle: Text('$index'),
+              title: Text('${listMahasiswa[index].nama}'),
+              subtitle: Text('${listMahasiswa[index].addres}'),
             ),
           );
         },
-        itemCount: 20,
+        itemCount: listMahasiswa.length,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
